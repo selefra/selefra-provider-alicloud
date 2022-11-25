@@ -47,7 +47,9 @@ if [[ "$VERSION" != "$version" ]]; then
   sed "${sedi[@]}" "s#{{.Introduction}}#A Selefra provider for Amazon Web Services (alicloud).#g" provider/template/metadata.yaml
   sed "${sedi[@]}" "s#{{.ProviderVersion}}#${version}#g" provider/template/metadata.yaml
   sed "${sedi[@]}" '6d' provider/template/metadata.yaml
-  sed -n '/^ /p' provider/alicloud/metadata.yaml >> provider/template/metadata.yaml
+  if [ -f "provider/alicloud/metadata.yaml" ];then
+    sed -n '/^ /p' provider/alicloud/metadata.yaml >> provider/template/metadata.yaml
+  fi
   echo "  - ${version}" >> provider/template/metadata.yaml
   cat provider/template/metadata.yaml > provider/alicloud/metadata.yaml
   mv provider/template/metadata.yaml.bak provider/template/metadata.yaml
