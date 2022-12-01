@@ -2,14 +2,13 @@ package tables
 
 import (
 	"context"
+	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
 	"strconv"
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/sas"
+	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
 	"github.com/selefra/selefra-provider-sdk/provider/transformer/column_value_extractor"
-	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
-	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
-	"github.com/turbot/go-kit/helpers"
 )
 
 type TableAlicloudSecurityCenterVersionGenerator struct {
@@ -39,8 +38,8 @@ func (x *TableAlicloudSecurityCenterVersionGenerator) GetDataSource() *schema.Da
 
 			region := taskClient.(*alicloud_client.AliCloudClient).Region
 
-			supportedRegions := []string{"cn-hangzhou", "ap-southeast-1", "ap-southeast-3"}
-			if !helpers.StringSliceContains(supportedRegions, region) {
+			supportedRegions := map[string]struct{}{"cn-hangzhou": {}, "ap-southeast-1": {}, "ap-southeast-3": {}}
+			if _, exists := supportedRegions[region]; !exists {
 				return schema.NewDiagnosticsErrorPullTable(task.Table, nil)
 			}
 

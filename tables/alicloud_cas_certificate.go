@@ -6,11 +6,10 @@ import (
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/cas"
+	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
+	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
 	"github.com/selefra/selefra-provider-sdk/provider/transformer/column_value_extractor"
-	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
-	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
-	"github.com/turbot/go-kit/helpers"
 )
 
 type TableAlicloudCasCertificateGenerator struct {
@@ -40,7 +39,7 @@ func (x *TableAlicloudCasCertificateGenerator) GetDataSource() *schema.DataSourc
 
 			region := taskClient.(*alicloud_client.AliCloudClient).Region
 
-			if !helpers.StringSliceContains(supportedRegions, region) {
+			if _, exists := supportedRegions[region]; !exists {
 				return schema.NewDiagnosticsErrorPullTable(task.Table, nil)
 			}
 
@@ -91,7 +90,7 @@ func casCertificate(item interface{}) int64 {
 func getUserCertificate(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, row *schema.Row, column *schema.Column, result any) (any, error) {
 	region := taskClient.(*alicloud_client.AliCloudClient).Region
 
-	if !helpers.StringSliceContains(supportedRegions, region) {
+	if _, exists := supportedRegions[region]; !exists {
 		return nil, nil
 	}
 

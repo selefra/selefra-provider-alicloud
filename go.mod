@@ -12,12 +12,10 @@ require (
 	github.com/selefra/selefra-utils v0.0.2
 	github.com/sethvargo/go-retry v0.1.0
 	github.com/spf13/viper v1.14.0
-	github.com/turbot/go-kit v0.4.0
 )
 
 require (
 	github.com/Masterminds/squirrel v1.5.3 // indirect
-	github.com/acarl005/stripansi v0.0.0-20180116102854-5a71ef0e047d // indirect
 	github.com/alibabacloud-go/debug v0.0.0-20190504072949-9472017b5c68 // indirect
 	github.com/alibabacloud-go/endpoint-util v1.1.0 // indirect
 	github.com/alibabacloud-go/tea v1.1.17 // indirect
@@ -65,7 +63,6 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.4.1 // indirect
-	github.com/tkrajina/go-reflector v0.5.4 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/goleak v1.1.12 // indirect
 	go.uber.org/multierr v1.8.0 // indirect

@@ -4,11 +4,10 @@ import (
 	"context"
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/sas"
+	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
+	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
 	"github.com/selefra/selefra-provider-sdk/provider/transformer/column_value_extractor"
-	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
-	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
-	"github.com/turbot/go-kit/helpers"
 )
 
 type TableAlicloudSecurityCenterFieldStatisticsGenerator struct {
@@ -38,8 +37,8 @@ func (x *TableAlicloudSecurityCenterFieldStatisticsGenerator) GetDataSource() *s
 
 			region := taskClient.(*alicloud_client.AliCloudClient).Region
 
-			supportedRegions := []string{"cn-hangzhou", "ap-southeast-1", "ap-southeast-3"}
-			if !helpers.StringSliceContains(supportedRegions, region) {
+			supportedRegions := map[string]struct{}{"cn-hangzhou": {}, "ap-southeast-1": {}, "ap-southeast-3": {}}
+			if _, exists := supportedRegions[region]; !exists {
 				return schema.NewDiagnosticsErrorPullTable(task.Table, nil)
 			}
 
@@ -65,7 +64,7 @@ func (x *TableAlicloudSecurityCenterFieldStatisticsGenerator) GetDataSource() *s
 	}
 }
 
-var supportedRegions = []string{"cn-hangzhou", "ap-south-1", "me-east-1", "eu-central-1", "ap-northeast-1", "ap-southeast-2"}
+var supportedRegions = map[string]struct{}{"cn-hangzhou": {}, "ap-south-1": {}, "me-east-1": {}, "eu-central-1": {}, "ap-northeast-1": {}, "ap-southeast-2": {}}
 
 type FieldInfo struct {
 	sas.GroupedFields
