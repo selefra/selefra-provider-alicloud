@@ -1,8 +1,8 @@
 package alicloud_client
 
 import (
-	"github.com/selefra/selefra-provider-alicloud/constants"
 	"context"
+	"github.com/selefra/selefra-provider-alicloud/constants"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
 	"os"
 	"strings"
@@ -23,49 +23,51 @@ func BuildRegionList() func(ctx context.Context, clientMeta *schema.ClientMeta, 
 			slice := make([]*schema.ClientTaskContext, 0)
 			for _, region := range regions {
 				slice = append(slice, &schema.ClientTaskContext{
-					Task:	task.Clone(),
-					Client:	client.CopyWithRegion(region),
+					Task:   task.Clone(),
+					Client: client.CopyWithRegion(region),
 				})
 			}
 			return slice
 		}
 
-		return []*schema.ClientTaskContext{
-			&schema.ClientTaskContext{
-				Task:	task.Clone(),
-				Client:	client.CopyWithRegion(GetDefaultRegion(ctx, clientMeta, taskClient, task)),
-			},
+		slice := make([]*schema.ClientTaskContext, 0)
+		for _, region := range GetDefaultRegions(ctx, clientMeta, taskClient, task) {
+			slice = append(slice, &schema.ClientTaskContext{
+				Task:   task.Clone(),
+				Client: client.CopyWithRegion(region),
+			})
 		}
+		return slice
 	}
 }
 
 var alicloudRegions = map[string]struct{}{
-	constants.Cnbeijing:		{},
-	constants.Cnbeijingfinance:	{},
-	constants.Cnchengdu:		{},
-	constants.Cnguangzhou:		{},
-	constants.Cnhangzhou:		{},
-	constants.Cnheyuan:		{},
-	constants.Cnhongkong:		{},
-	constants.Cnhuhehaote:		{},
-	constants.Cnqingdao:		{},
-	constants.Cnshanghai:		{},
-	constants.Cnshanghaifinance:	{},
-	constants.Cnshenzhen:		{},
-	constants.Cnshenzhenfinance:	{},
-	constants.Cnwulanchabu:		{},
-	constants.Cnzhangjiakou:		{},
-	constants.Apnortheast:		{},
-	constants.Apsouth:		{},
-	constants.Apsoutheast:		{},
-	"ap-southeast-2":	{},
-	"ap-southeast-3":	{},
-	"ap-southeast-5":	{},
-	constants.Eucentral:	{},
-	constants.Euwest:		{},
-	constants.Meeast:		{},
-	constants.Useast:		{},
-	constants.Uswest:		{},
+	constants.Cnbeijing:         {},
+	constants.Cnbeijingfinance:  {},
+	constants.Cnchengdu:         {},
+	constants.Cnguangzhou:       {},
+	constants.Cnhangzhou:        {},
+	constants.Cnheyuan:          {},
+	constants.Cnhongkong:        {},
+	constants.Cnhuhehaote:       {},
+	constants.Cnqingdao:         {},
+	constants.Cnshanghai:        {},
+	constants.Cnshanghaifinance: {},
+	constants.Cnshenzhen:        {},
+	constants.Cnshenzhenfinance: {},
+	constants.Cnwulanchabu:      {},
+	constants.Cnzhangjiakou:     {},
+	constants.Apnortheast:       {},
+	constants.Apsouth:           {},
+	constants.Apsoutheast:       {},
+	"ap-southeast-2":            {},
+	"ap-southeast-3":            {},
+	"ap-southeast-5":            {},
+	constants.Eucentral:         {},
+	constants.Euwest:            {},
+	constants.Meeast:            {},
+	constants.Useast:            {},
+	constants.Uswest:            {},
 }
 
 func getInvalidRegions(regions []string) []string {
@@ -78,42 +80,53 @@ func getInvalidRegions(regions []string) []string {
 	return invalidRegions
 }
 
-func GetDefaultRegion(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) string {
+func GetDefaultRegions(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) []string {
 
 	alicloudConfig := taskClient.(*AliCloudClient).AliCloudConfig
 
 	var regions []string
-	var region string
 
-	if alicloudConfig != nil && alicloudConfig.Regions != nil {
-		regions = alicloudConfig.Regions
+	if alicloudConfig != nil && len(alicloudConfig.Regions) != 0 {
+		regions = append(regions, alicloudConfig.Regions...)
+		return regions
 	}
+	//
+	//if len(regions) > 0 {
+	//	//
+	//	//region = regions[0]
+	//	//
+	//	//if len(getInvalidRegions([]string{region})) > 0 {
+	//	//	panic(constants.NnConnectionconfighaveinvalidregion + region + ". Edit your connection configuration file and then restart selefra")
+	//	//}
+	//	//return []string{region}
+	//	return regions
+	//}
 
-	if len(regions) > 0 {
-
-		region = regions[0]
-
-		if len(getInvalidRegions([]string{region})) > 0 {
-			panic(constants.NnConnectionconfighaveinvalidregion + region + ". Edit your connection configuration file and then restart selefra")
+	region := os.Getenv(constants.ALIBABACLOUDREGIONID)
+	if region == constants.Constants_2 {
+		region = os.Getenv(constants.ALICLOUDREGIONID)
+		if region == constants.Constants_3 {
+			region = os.Getenv(constants.ALICLOUDREGION)
 		}
-		return region
 	}
 
-	if region == constants.Constants_1 {
-		region = os.Getenv(constants.ALIBABACLOUDREGIONID)
-		if region == constants.Constants_2 {
-			region = os.Getenv(constants.ALICLOUDREGIONID)
-			if region == constants.Constants_3 {
-				region = os.Getenv(constants.ALICLOUDREGION)
-			}
+	if region != "" {
+		regions = append(regions, splitRegion(region)...)
+	} else {
+		for region := range alicloudRegions {
+			regions = append(regions, region)
 		}
 	}
 
-	if region == constants.Constants_4 {
-		region = constants.Cnbeijing
-	}
+	return regions
+}
 
-	return region
+func splitRegion(region string) []string {
+	regions := make([]string, 0)
+	for _, region := range strings.Split(region, ",") {
+		regions = append(regions, strings.TrimSpace(region))
+	}
+	return regions
 }
 
 func getEnv(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) (secretKey string, accessKey string, err error) {

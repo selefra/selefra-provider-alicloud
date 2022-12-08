@@ -1,7 +1,6 @@
 package alicloud_client
 
 import (
-	"github.com/selefra/selefra-provider-alicloud/constants"
 	"context"
 	"fmt"
 	ims "github.com/alibabacloud-go/ims-20190815/client"
@@ -19,6 +18,7 @@ import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/sts"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/vpc"
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
+	"github.com/selefra/selefra-provider-alicloud/constants"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
 )
 
@@ -271,7 +271,7 @@ func ActionTrailService(ctx context.Context, clientMeta *schema.ClientMeta, task
 }
 
 func ContainerService(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) (*cs.Client, error) {
-	region := GetDefaultRegion(ctx, clientMeta, taskClient, task)
+	region := GetDefaultRegions(ctx, clientMeta, taskClient, task)
 
 	if region == constants.Constants_15 {
 		return nil, fmt.Errorf(constants.RegionmustbepassedContainerService)
