@@ -270,12 +270,14 @@ func ActionTrailService(ctx context.Context, clientMeta *schema.ClientMeta, task
 	return svc, nil
 }
 
+// TODO2022-12-8 17:23:44 may be wrong?
 func ContainerService(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) (*cs.Client, error) {
-	region := GetDefaultRegions(ctx, clientMeta, taskClient, task)
-
-	if region == constants.Constants_15 {
-		return nil, fmt.Errorf(constants.RegionmustbepassedContainerService)
+	aliCloudClient := taskClient.(*AliCloudClient)
+	region := aliCloudClient.Region
+	if region == constants.Constants_16 {
+		return nil, fmt.Errorf(constants.RegionmustbepassedSecurityCenterService)
 	}
+
 	ak, secret, err := getEnv(ctx, clientMeta, taskClient, task)
 	if err != nil {
 		return nil, err

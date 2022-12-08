@@ -38,7 +38,8 @@ func (x *TableAlicloudCsKubernetesClusterGenerator) GetDataSource() *schema.Data
 	return &schema.DataSource{
 		Pull: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) *schema.Diagnostics {
 
-			region := alicloud_client.GetDefaultRegions(ctx, clientMeta, taskClient, task)
+			// TODO 2022-12-8 17:25:27 may be wrong?
+			//region := alicloud_client.GetDefaultRegions(ctx, clientMeta, taskClient, task)
 
 			client, err := alicloud_client.ContainerService(ctx, clientMeta, taskClient, task)
 			if err != nil {
@@ -47,7 +48,7 @@ func (x *TableAlicloudCsKubernetesClusterGenerator) GetDataSource() *schema.Data
 			}
 			request := cs.CreateDescribeClustersV1Request()
 			request.Scheme = "https"
-			request.QueryParams["RegionId"] = region
+			request.QueryParams["RegionId"] = taskClient.(*alicloud_client.AliCloudClient).Region
 			request.PageSize = requests.NewInteger(50)
 			request.PageNumber = requests.NewInteger(1)
 
