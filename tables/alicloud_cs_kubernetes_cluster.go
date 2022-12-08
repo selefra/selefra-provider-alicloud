@@ -150,7 +150,7 @@ func getCsKubernetesClusterNamespace(ctx context.Context, clientMeta *schema.Cli
 }
 
 func (x *TableAlicloudCsKubernetesClusterGenerator) GetExpandClientTask() func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) []*schema.ClientTaskContext {
-	return nil
+	return alicloud_client.BuildRegionList()
 }
 
 func (x *TableAlicloudCsKubernetesClusterGenerator) GetColumns() []*schema.Column {

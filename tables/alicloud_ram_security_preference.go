@@ -4,10 +4,10 @@ import (
 	"context"
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ram"
+	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
+	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
 	"github.com/selefra/selefra-provider-sdk/provider/transformer/column_value_extractor"
-	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
-	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
 )
 
 type TableAlicloudRamSecurityPreferenceGenerator struct {
@@ -55,7 +55,7 @@ func (x *TableAlicloudRamSecurityPreferenceGenerator) GetDataSource() *schema.Da
 }
 
 func (x *TableAlicloudRamSecurityPreferenceGenerator) GetExpandClientTask() func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) []*schema.ClientTaskContext {
-	return nil
+	return alicloud_client.BuildRegionList()
 }
 
 func (x *TableAlicloudRamSecurityPreferenceGenerator) GetColumns() []*schema.Column {

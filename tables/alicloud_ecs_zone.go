@@ -4,10 +4,10 @@ import (
 	"context"
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
+	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
+	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
 	"github.com/selefra/selefra-provider-sdk/provider/transformer/column_value_extractor"
-	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
-	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
 )
 
 type TableAlicloudEcsZoneGenerator struct {
@@ -83,7 +83,7 @@ func getZoneAkas(ctx context.Context, clientMeta *schema.ClientMeta, taskClient 
 }
 
 func (x *TableAlicloudEcsZoneGenerator) GetExpandClientTask() func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) []*schema.ClientTaskContext {
-	return nil
+	return alicloud_client.BuildRegionList()
 }
 
 func (x *TableAlicloudEcsZoneGenerator) GetColumns() []*schema.Column {

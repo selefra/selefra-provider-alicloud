@@ -6,10 +6,10 @@ import (
 	ims "github.com/alibabacloud-go/ims-20190815/client"
 
 	"github.com/gocarina/gocsv"
+	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
+	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
 	"github.com/selefra/selefra-provider-sdk/provider/transformer/column_value_extractor"
-	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
-	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
 )
 
 type TableAlicloudRamCredentialReportGenerator struct {
@@ -104,7 +104,7 @@ type alicloudRamCredentialReportResult struct {
 }
 
 func (x *TableAlicloudRamCredentialReportGenerator) GetExpandClientTask() func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) []*schema.ClientTaskContext {
-	return nil
+	return alicloud_client.BuildRegionList()
 }
 
 func (x *TableAlicloudRamCredentialReportGenerator) GetColumns() []*schema.Column {

@@ -7,11 +7,11 @@ import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/errors"
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ram"
+	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
+	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
 	"github.com/selefra/selefra-provider-sdk/provider/transformer/column_value_extractor"
 	"github.com/selefra/selefra-utils/pkg/reflect_util"
-	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
-	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
 	"github.com/sethvargo/go-retry"
 )
 
@@ -266,7 +266,7 @@ func userMfaStatus(ctx context.Context, clientMeta *schema.ClientMeta, taskClien
 }
 
 func (x *TableAlicloudRamUserGenerator) GetExpandClientTask() func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) []*schema.ClientTaskContext {
-	return nil
+	return alicloud_client.BuildRegionList()
 }
 
 func (x *TableAlicloudRamUserGenerator) GetColumns() []*schema.Column {

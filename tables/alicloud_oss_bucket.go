@@ -5,10 +5,10 @@ import (
 	"strings"
 
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
+	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
+	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
 	"github.com/selefra/selefra-provider-sdk/provider/transformer/column_value_extractor"
-	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
-	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
 )
 
 type TableAlicloudOssBucketGenerator struct {
@@ -164,7 +164,7 @@ func getBucketTagging(ctx context.Context, clientMeta *schema.ClientMeta, taskCl
 }
 
 func (x *TableAlicloudOssBucketGenerator) GetExpandClientTask() func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) []*schema.ClientTaskContext {
-	return nil
+	return alicloud_client.BuildRegionList()
 }
 
 func (x *TableAlicloudOssBucketGenerator) GetColumns() []*schema.Column {
