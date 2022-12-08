@@ -102,20 +102,24 @@ func GetDefaultRegions(ctx context.Context, clientMeta *schema.ClientMeta, taskC
 	//	return regions
 	//}
 
-	region := os.Getenv(constants.ALIBABACLOUDREGIONID)
-	if region == constants.Constants_2 {
-		region = os.Getenv(constants.ALICLOUDREGIONID)
-		if region == constants.Constants_3 {
-			region = os.Getenv(constants.ALICLOUDREGION)
-		}
-	}
+	//region := os.Getenv(constants.ALIBABACLOUDREGIONID)
+	//if region == constants.Constants_2 {
+	//	region = os.Getenv(constants.ALICLOUDREGIONID)
+	//	if region == constants.Constants_3 {
+	//		region = os.Getenv(constants.ALICLOUDREGION)
+	//	}
+	//}
+	//
+	//if region != "" {
+	//	regions = append(regions, splitRegion(region)...)
+	//} else {
+	//	for region := range alicloudRegions {
+	//		regions = append(regions, region)
+	//	}
+	//}
 
-	if region != "" {
-		regions = append(regions, splitRegion(region)...)
-	} else {
-		for region := range alicloudRegions {
-			regions = append(regions, region)
-		}
+	for region := range alicloudRegions {
+		regions = append(regions, region)
 	}
 
 	return regions
