@@ -23,13 +23,13 @@ func GetProvider() *provider.Provider {
 				// 1. first try read config from selefra config
 				accessKey := config.GetString("accounts.access_key")
 				secretKey := config.GetString("accounts.secret_key")
-				regisons := config.GetStringSlice("accounts.regions")
+				regions := config.GetStringSlice("accounts.regions")
 				var alicloudConfig *alicloud_client.AliCloudConfig
-				if accessKey != constants.Constants_18 || secretKey != constants.Constants_19 || len(regisons) != 0 {
+				if accessKey != constants.Constants_18 || secretKey != constants.Constants_19 || len(regions) != 0 {
 					alicloudConfig = &alicloud_client.AliCloudConfig{
 						AccessKey: pointer.ToStringPointerOrNilIfEmpty(accessKey),
 						SecretKey: pointer.ToStringPointerOrNilIfEmpty(secretKey),
-						Regions:   regisons,
+						Regions:   regions,
 					}
 				}
 				return []any{
