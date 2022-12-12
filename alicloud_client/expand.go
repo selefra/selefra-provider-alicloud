@@ -73,7 +73,7 @@ var alicloudRegions = map[string]struct{}{
 func getInvalidRegions(regions []string) []string {
 	var invalidRegions []string
 	for _, region := range regions {
-		if _, exists := alicloudRegions[region]; exists {
+		if _, exists := alicloudRegions[region]; !exists {
 			invalidRegions = append(invalidRegions, region)
 		}
 	}
