@@ -67,7 +67,8 @@ func getAccountAkas(ctx context.Context, clientMeta *schema.ClientMeta, taskClie
 }
 
 func (x *TableAlicloudAccountGenerator) GetExpandClientTask() func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) []*schema.ClientTaskContext {
-	return alicloud_client.BuildRegionList()
+	//return alicloud_client.BuildRegionList()
+	return nil
 }
 
 func (x *TableAlicloudAccountGenerator) GetColumns() []*schema.Column {

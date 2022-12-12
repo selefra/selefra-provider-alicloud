@@ -55,7 +55,8 @@ func (x *TableAlicloudRamSecurityPreferenceGenerator) GetDataSource() *schema.Da
 }
 
 func (x *TableAlicloudRamSecurityPreferenceGenerator) GetExpandClientTask() func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) []*schema.ClientTaskContext {
-	return alicloud_client.BuildRegionList()
+	//return alicloud_client.BuildRegionList()
+	return nil
 }
 
 func (x *TableAlicloudRamSecurityPreferenceGenerator) GetColumns() []*schema.Column {
