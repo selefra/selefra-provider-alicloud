@@ -68,6 +68,11 @@ var alicloudRegions = map[string]struct{}{
 	constants.Meeast:            {},
 	constants.Useast:            {},
 	constants.Uswest:            {},
+	"cn-nanjing": {},
+	"cn-fuzhou": {},
+	"ap-northeast-2": {},
+	"ap-southeast-6": {},
+	"ap-southeast-7": {},
 }
 
 func getInvalidRegions(regions []string) []string {
