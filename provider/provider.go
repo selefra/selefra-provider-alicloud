@@ -21,9 +21,9 @@ func GetProvider() *provider.Provider {
 			InitClient: func(ctx context.Context, clientMeta *schema.ClientMeta, config *viper.Viper) ([]any, *schema.Diagnostics) {
 
 				// 1. first try read config from selefra config
-				accessKey := config.GetString("providers.accounts.access_key")
-				secretKey := config.GetString("providers.accounts.secret_key")
-				regions := config.GetStringSlice("providers.accounts.regions")
+				accessKey := config.GetString("providers.0.accounts.access_key")
+				secretKey := config.GetString("providers.0.accounts.secret_key")
+				regions := config.GetStringSlice("providers.0.accounts.regions")
 				var alicloudConfig *alicloud_client.AliCloudConfig
 				if accessKey != constants.Constants_18 || secretKey != constants.Constants_19 || len(regions) != 0 {
 					alicloudConfig = &alicloud_client.AliCloudConfig{
