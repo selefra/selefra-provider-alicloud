@@ -78,6 +78,7 @@ func GetProvider() *provider.Provider {
 							clientMeta.DebugF("get latest regions error, client init error")
 							return nil, diagnostics.AddErrorMsg("get latest regions error, client init error")
 						}
+						latestRegionSet["me-east-1"] = struct{}{}
 						alicloud_client.AlicloudRegions = latestRegionSet
 						clientMeta.DebugF("init all latest regions: ", zap.Any("latestRegions", latestRegionSet))
 					}
