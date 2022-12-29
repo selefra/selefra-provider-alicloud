@@ -2,6 +2,7 @@ package alicloud_client
 
 import (
 	"context"
+	"errors"
 	"github.com/selefra/selefra-provider-alicloud/constants"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
 	"os"
@@ -138,9 +139,13 @@ func splitRegion(region string) []string {
 	return regions
 }
 
-func getEnv(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) (secretKey string, accessKey string, err error) {
+func GetEnv(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) (accessKey string, secretKey string, err error) {
 
-	alicloudConfig := taskClient.(*AliCloudClient).AliCloudConfig
+	var alicloudConfig *AliCloudConfig
+
+	if taskClient != nil {
+		alicloudConfig = taskClient.(*AliCloudClient).AliCloudConfig
+	}
 
 	if alicloudConfig != nil && alicloudConfig.AccessKey != nil {
 		accessKey = *alicloudConfig.AccessKey
@@ -149,7 +154,7 @@ func getEnv(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, 
 		if accessKey, ok = os.LookupEnv(constants.ALIBABACLOUDACCESSKEYID); !ok {
 			if accessKey, ok = os.LookupEnv(constants.ALICLOUDACCESSKEYID); !ok {
 				if accessKey, ok = os.LookupEnv(constants.ALICLOUDACCESSKEY); !ok {
-					panic(constants.NaccesskeymustbesetintheconnectionconfigurationEdityourconnectionconfigurationfileandthenrestartselefra)
+					return "", "", errors.New(constants.NaccesskeymustbesetintheconnectionconfigurationEdityourconnectionconfigurationfileandthenrestartselefra)
 				}
 			}
 		}
@@ -162,7 +167,7 @@ func getEnv(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, 
 		if secretKey, ok = os.LookupEnv(constants.ALIBABACLOUDACCESSKEYSECRET); !ok {
 			if secretKey, ok = os.LookupEnv(constants.ALICLOUDACCESSKEYSECRET); !ok {
 				if secretKey, ok = os.LookupEnv(constants.ALICLOUDSECRETKEY); !ok {
-					panic(constants.NsecretkeymustbesetintheconnectionconfigurationEdityourconnectionconfigurationfileandthenrestartselefra)
+					return "", "", errors.New(constants.NsecretkeymustbesetintheconnectionconfigurationEdityourconnectionconfigurationfileandthenrestartselefra)
 				}
 			}
 		}

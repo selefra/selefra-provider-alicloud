@@ -29,7 +29,7 @@ func AutoscalingService(ctx context.Context, clientMeta *schema.ClientMeta, task
 		return nil, fmt.Errorf(constants.RegionmustbepassedAutoscalingService)
 	}
 
-	ak, secret, err := getEnv(ctx, clientMeta, taskClient, task)
+	ak, secret, err := GetEnv(ctx, clientMeta, taskClient, task)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func CasService(ctx context.Context, clientMeta *schema.ClientMeta, taskClient a
 		return nil, fmt.Errorf(constants.RegionmustbepassedCasService)
 	}
 
-	ak, secret, err := getEnv(ctx, clientMeta, taskClient, task)
+	ak, secret, err := GetEnv(ctx, clientMeta, taskClient, task)
 	if err != nil {
 		return nil, err
 	}
@@ -68,7 +68,7 @@ func CmsService(ctx context.Context, clientMeta *schema.ClientMeta, taskClient a
 		return nil, fmt.Errorf(constants.RegionmustbepassedCmsService)
 	}
 
-	ak, secret, err := getEnv(ctx, clientMeta, taskClient, task)
+	ak, secret, err := GetEnv(ctx, clientMeta, taskClient, task)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func ECSService(ctx context.Context, clientMeta *schema.ClientMeta, taskClient a
 		return nil, fmt.Errorf(constants.RegionmustbepassedECSService)
 	}
 
-	ak, secret, err := getEnv(ctx, clientMeta, taskClient, task)
+	ak, secret, err := GetEnv(ctx, clientMeta, taskClient, task)
 	if err != nil {
 		return nil, err
 	}
@@ -106,7 +106,7 @@ func ECSRegionService(ctx context.Context, clientMeta *schema.ClientMeta, taskCl
 		return nil, fmt.Errorf(constants.RegionmustbepassedECSRegionService)
 	}
 
-	ak, secret, err := getEnv(ctx, clientMeta, taskClient, task)
+	ak, secret, err := GetEnv(ctx, clientMeta, taskClient, task)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func ECSRegionService(ctx context.Context, clientMeta *schema.ClientMeta, taskCl
 func IMSService(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) (*ims.Client, error) {
 	region := taskClient.(*AliCloudClient).Region
 
-	ak, secret, err := getEnv(ctx, clientMeta, taskClient, task)
+	ak, secret, err := GetEnv(ctx, clientMeta, taskClient, task)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +147,7 @@ func KMSService(ctx context.Context, clientMeta *schema.ClientMeta, taskClient a
 		return nil, fmt.Errorf(constants.RegionmustbepassedKMSService)
 	}
 
-	ak, secret, err := getEnv(ctx, clientMeta, taskClient, task)
+	ak, secret, err := GetEnv(ctx, clientMeta, taskClient, task)
 	if err != nil {
 		return nil, err
 	}
@@ -163,7 +163,7 @@ func KMSService(ctx context.Context, clientMeta *schema.ClientMeta, taskClient a
 func RAMService(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) (*ram.Client, error) {
 	region := taskClient.(*AliCloudClient).Region
 
-	ak, secret, err := getEnv(ctx, clientMeta, taskClient, task)
+	ak, secret, err := GetEnv(ctx, clientMeta, taskClient, task)
 	if err != nil {
 		return nil, err
 	}
@@ -179,7 +179,7 @@ func RAMService(ctx context.Context, clientMeta *schema.ClientMeta, taskClient a
 func StsService(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) (*sts.Client, error) {
 	region := taskClient.(*AliCloudClient).Region
 
-	ak, secret, err := getEnv(ctx, clientMeta, taskClient, task)
+	ak, secret, err := GetEnv(ctx, clientMeta, taskClient, task)
 	if err != nil {
 		return nil, err
 	}
@@ -199,7 +199,7 @@ func VpcService(ctx context.Context, clientMeta *schema.ClientMeta, taskClient a
 		return nil, fmt.Errorf(constants.RegionmustbepassedVpcService)
 	}
 
-	ak, secret, err := getEnv(ctx, clientMeta, taskClient, task)
+	ak, secret, err := GetEnv(ctx, clientMeta, taskClient, task)
 	if err != nil {
 		return nil, err
 	}
@@ -218,7 +218,7 @@ func OssService(ctx context.Context, clientMeta *schema.ClientMeta, taskClient a
 		return nil, fmt.Errorf(constants.RegionmustbepassedOssService)
 	}
 
-	ak, secret, err := getEnv(ctx, clientMeta, taskClient, task)
+	ak, secret, err := GetEnv(ctx, clientMeta, taskClient, task)
 	if err != nil {
 		return nil, err
 	}
@@ -237,7 +237,7 @@ func RDSService(ctx context.Context, clientMeta *schema.ClientMeta, taskClient a
 		return nil, fmt.Errorf(constants.RegionmustbepassedRDSService)
 	}
 
-	ak, secret, err := getEnv(ctx, clientMeta, taskClient, task)
+	ak, secret, err := GetEnv(ctx, clientMeta, taskClient, task)
 	if err != nil {
 		return nil, err
 	}
@@ -257,7 +257,7 @@ func ActionTrailService(ctx context.Context, clientMeta *schema.ClientMeta, task
 		return nil, fmt.Errorf(constants.RegionmustbepassedActionTrailService)
 	}
 
-	ak, secret, err := getEnv(ctx, clientMeta, taskClient, task)
+	ak, secret, err := GetEnv(ctx, clientMeta, taskClient, task)
 	if err != nil {
 		return nil, err
 	}
@@ -278,7 +278,7 @@ func ContainerService(ctx context.Context, clientMeta *schema.ClientMeta, taskCl
 		return nil, fmt.Errorf(constants.RegionmustbepassedSecurityCenterService)
 	}
 
-	ak, secret, err := getEnv(ctx, clientMeta, taskClient, task)
+	ak, secret, err := GetEnv(ctx, clientMeta, taskClient, task)
 	if err != nil {
 		return nil, err
 	}
@@ -298,7 +298,7 @@ func SecurityCenterService(ctx context.Context, clientMeta *schema.ClientMeta, t
 		return nil, fmt.Errorf(constants.RegionmustbepassedSecurityCenterService)
 	}
 
-	ak, secret, err := getEnv(ctx, clientMeta, taskClient, task)
+	ak, secret, err := GetEnv(ctx, clientMeta, taskClient, task)
 	if err != nil {
 		return nil, err
 	}

@@ -32,64 +32,69 @@ func GetProvider() *provider.Provider {
 				secretKey := config.GetString("providers.0.accounts.secret_key")
 				regions := config.GetStringSlice("providers.0.accounts.regions")
 				var alicloudConfig *alicloud_client.AliCloudConfig
-				if accessKey != constants.Constants_18 || secretKey != constants.Constants_19 || len(regions) != 0 {
-
-					// ------------------------------------------------- --------------------------------------------------------------------
-
-					client, err := CreateClient(tea.String(accessKey), tea.String(secretKey))
+				if accessKey == constants.Constants_18 || secretKey == constants.Constants_19 {
+					var err error
+					accessKey, secretKey, err = alicloud_client.GetEnv(ctx, clientMeta, nil, nil)
 					if err != nil {
 						return nil, diagnostics.AddErrorMsg("create alicloud error: %s", err.Error())
 					}
+				}
 
-					describeRegionsRequest := &pvtz20180101.DescribeRegionsRequest{}
-					runtime := &util.RuntimeOptions{}
-					response, err := func() (response *pvtz20180101.DescribeRegionsResponse, err error) {
-						defer func() {
-							if r := tea.Recover(recover()); r != nil {
-								err = r
-							}
-						}()
-						for tryTimes := 0; tryTimes < 3; tryTimes++ {
-							response, err = client.DescribeRegionsWithOptions(describeRegionsRequest, runtime)
-							if err != nil {
-								continue
-							}
-							return response, nil
+				// ------------------------------------------------- --------------------------------------------------------------------
+
+				client, err := CreateClient(tea.String(accessKey), tea.String(secretKey))
+				if err != nil {
+					return nil, diagnostics.AddErrorMsg("create alicloud error: %s", err.Error())
+				}
+
+				describeRegionsRequest := &pvtz20180101.DescribeRegionsRequest{}
+				runtime := &util.RuntimeOptions{}
+				response, err := func() (response *pvtz20180101.DescribeRegionsResponse, err error) {
+					defer func() {
+						if r := tea.Recover(recover()); r != nil {
+							err = r
 						}
-						return
 					}()
+					for tryTimes := 0; tryTimes < 3; tryTimes++ {
+						response, err = client.DescribeRegionsWithOptions(describeRegionsRequest, runtime)
+						if err != nil {
+							continue
+						}
+						return response, nil
+					}
+					return
+				}()
 
-					if err != nil {
-						return nil, diagnostics.AddErrorMsg("init client error: %s", err.Error())
-					} else {
-						latestRegionSet := make(map[string]struct{}, 0)
-						if response.Body != nil && response.Body.Regions != nil && len(response.Body.Regions.Region) != 0 {
-							for _, region := range response.Body.Regions.Region {
-								if region.RegionId != nil {
-									regionId := *region.RegionId
-									//if strings.Contains(regionId, "-gov-") || strings.Contains(regionId, "-finance-") {
-									//	continue
-									//}
-									latestRegionSet[regionId] = struct{}{}
-								}
+				if err != nil {
+					return nil, diagnostics.AddErrorMsg("init client error: %s", err.Error())
+				} else {
+					latestRegionSet := make(map[string]struct{}, 0)
+					if response.Body != nil && response.Body.Regions != nil && len(response.Body.Regions.Region) != 0 {
+						for _, region := range response.Body.Regions.Region {
+							if region.RegionId != nil {
+								regionId := *region.RegionId
+								//if strings.Contains(regionId, "-gov-") || strings.Contains(regionId, "-finance-") {
+								//	continue
+								//}
+								latestRegionSet[regionId] = struct{}{}
 							}
 						}
-						if len(latestRegionSet) == 0 {
-							clientMeta.DebugF("get latest regions error, client init error")
-							return nil, diagnostics.AddErrorMsg("get latest regions error, client init error")
-						}
-						latestRegionSet["me-east-1"] = struct{}{}
-						alicloud_client.AlicloudRegions = latestRegionSet
-						clientMeta.DebugF("init all latest regions: ", zap.Any("latestRegions", latestRegionSet))
 					}
-
-					// ------------------------------------------------- --------------------------------------------------------------------
-
-					alicloudConfig = &alicloud_client.AliCloudConfig{
-						AccessKey: pointer.ToStringPointerOrNilIfEmpty(accessKey),
-						SecretKey: pointer.ToStringPointerOrNilIfEmpty(secretKey),
-						Regions:   regions,
+					if len(latestRegionSet) == 0 {
+						clientMeta.DebugF("get latest regions error, client init error")
+						return nil, diagnostics.AddErrorMsg("get latest regions error, client init error")
 					}
+					latestRegionSet["me-east-1"] = struct{}{}
+					alicloud_client.AlicloudRegions = latestRegionSet
+					clientMeta.DebugF("init all latest regions: ", zap.Any("latestRegions", latestRegionSet))
+				}
+
+				// ------------------------------------------------- --------------------------------------------------------------------
+
+				alicloudConfig = &alicloud_client.AliCloudConfig{
+					AccessKey: pointer.ToStringPointerOrNilIfEmpty(accessKey),
+					SecretKey: pointer.ToStringPointerOrNilIfEmpty(secretKey),
+					Regions:   regions,
 				}
 
 				return []any{
