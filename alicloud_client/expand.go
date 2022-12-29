@@ -41,7 +41,7 @@ func BuildRegionList() func(ctx context.Context, clientMeta *schema.ClientMeta, 
 	}
 }
 
-var alicloudRegions = map[string]struct{}{
+var AlicloudRegions = map[string]struct{}{
 	constants.Cnbeijing:         {},
 	constants.Cnbeijingfinance:  {},
 	constants.Cnchengdu:         {},
@@ -78,7 +78,7 @@ var alicloudRegions = map[string]struct{}{
 func getInvalidRegions(regions []string) []string {
 	var invalidRegions []string
 	for _, region := range regions {
-		if _, exists := alicloudRegions[region]; !exists {
+		if _, exists := AlicloudRegions[region]; !exists {
 			invalidRegions = append(invalidRegions, region)
 		}
 	}
@@ -118,12 +118,12 @@ func GetDefaultRegions(ctx context.Context, clientMeta *schema.ClientMeta, taskC
 	//if region != "" {
 	//	regions = append(regions, splitRegion(region)...)
 	//} else {
-	//	for region := range alicloudRegions {
+	//	for region := range AlicloudRegions {
 	//		regions = append(regions, region)
 	//	}
 	//}
 
-	for region := range alicloudRegions {
+	for region := range AlicloudRegions {
 		regions = append(regions, region)
 	}
 
