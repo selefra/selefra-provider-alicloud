@@ -4,7 +4,6 @@ import (
 	"context"
 	openapi "github.com/alibabacloud-go/darabonba-openapi/v2/client"
 	pvtz20180101 "github.com/alibabacloud-go/pvtz-20180101/v2/client"
-	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
 	"github.com/selefra/selefra-provider-alicloud/constants"
@@ -48,7 +47,6 @@ func GetProvider() *provider.Provider {
 				}
 
 				describeRegionsRequest := &pvtz20180101.DescribeRegionsRequest{}
-				runtime := &util.RuntimeOptions{}
 				response, err := func() (response *pvtz20180101.DescribeRegionsResponse, err error) {
 					defer func() {
 						if r := tea.Recover(recover()); r != nil {
@@ -56,7 +54,7 @@ func GetProvider() *provider.Provider {
 						}
 					}()
 					for tryTimes := 0; tryTimes < 3; tryTimes++ {
-						response, err = client.DescribeRegionsWithOptions(describeRegionsRequest, runtime)
+						response, err = client.DescribeRegions(describeRegionsRequest)
 						if err != nil {
 							continue
 						}
@@ -84,8 +82,10 @@ func GetProvider() *provider.Provider {
 						clientMeta.DebugF("get latest regions error, client init error")
 						return nil, diagnostics.AddErrorMsg("get latest regions error, client init error")
 					}
-					latestRegionSet["me-east-1"] = struct{}{}
-					alicloud_client.AlicloudRegions = latestRegionSet
+					// merge latest region
+					for regionId, _ := range latestRegionSet {
+						alicloud_client.AlicloudRegions[regionId] = struct{}{}
+					}
 					clientMeta.DebugF("init all latest regions: ", zap.Any("latestRegions", latestRegionSet))
 				}
 
