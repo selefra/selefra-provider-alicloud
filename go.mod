@@ -11,7 +11,7 @@ require (
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1140
 	github.com/aliyun/aliyun-oss-go-sdk v2.2.6+incompatible
 	github.com/gocarina/gocsv v0.0.0-20221105105431-c8ef78125b99
-	github.com/selefra/selefra-provider-sdk v0.0.17-0.20230104134642-11483463e01d
+	github.com/selefra/selefra-provider-sdk v0.0.17
 	github.com/selefra/selefra-utils v0.0.2
 	github.com/sethvargo/go-retry v0.1.0
 	github.com/spf13/viper v1.14.0
