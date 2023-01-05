@@ -1,6 +1,6 @@
 module github.com/selefra/selefra-provider-alicloud
 
-go 1.18
+go 1.19
 
 require (
 	github.com/alibabacloud-go/darabonba-openapi/v2 v2.0.2
@@ -8,14 +8,14 @@ require (
 	github.com/alibabacloud-go/pvtz-20180101/v2 v2.0.0
 	github.com/alibabacloud-go/tea v1.1.19
 	github.com/alibabacloud-go/tea-rpc v1.3.3
-	github.com/alibabacloud-go/tea-utils/v2 v2.0.1
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1140
 	github.com/aliyun/aliyun-oss-go-sdk v2.2.6+incompatible
 	github.com/gocarina/gocsv v0.0.0-20221105105431-c8ef78125b99
-	github.com/selefra/selefra-provider-sdk v0.0.16-0.20221227073721-3590b3a0b00e
+	github.com/selefra/selefra-provider-sdk v0.0.17-0.20230104134642-11483463e01d
 	github.com/selefra/selefra-utils v0.0.2
 	github.com/sethvargo/go-retry v0.1.0
 	github.com/spf13/viper v1.14.0
+	go.uber.org/zap v1.23.0
 )
 
 require (
@@ -26,6 +26,7 @@ require (
 	github.com/alibabacloud-go/openapi-util v0.0.11 // indirect
 	github.com/alibabacloud-go/tea-rpc-utils v1.1.2 // indirect
 	github.com/alibabacloud-go/tea-utils v1.3.9 // indirect
+	github.com/alibabacloud-go/tea-utils/v2 v2.0.1 // indirect
 	github.com/alibabacloud-go/tea-xml v1.1.2 // indirect
 	github.com/aliyun/credentials-go v1.1.2 // indirect
 	github.com/benbjohnson/clock v1.3.0 // indirect
@@ -74,7 +75,6 @@ require (
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/goleak v1.1.12 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
-	go.uber.org/zap v1.23.0 // indirect
 	golang.org/x/crypto v0.0.0-20220824171710-5757bc0c5503 // indirect
 	golang.org/x/net v0.2.0 // indirect
 	golang.org/x/sys v0.2.0 // indirect
