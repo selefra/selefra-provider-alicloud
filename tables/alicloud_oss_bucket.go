@@ -29,7 +29,9 @@ func (x *TableAlicloudOssBucketGenerator) GetVersion() uint64 {
 }
 
 func (x *TableAlicloudOssBucketGenerator) GetOptions() *schema.TableOptions {
-	return &schema.TableOptions{}
+	return &schema.TableOptions{
+		PrimaryKeys: []string{"name", "location"},
+	}
 }
 
 func (x *TableAlicloudOssBucketGenerator) GetDataSource() *schema.DataSource {
