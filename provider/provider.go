@@ -12,6 +12,8 @@ import (
 	"github.com/selefra/selefra-utils/pkg/pointer"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
+	"os"
+	"strings"
 )
 
 var Version = constants.V
@@ -33,6 +35,11 @@ func GetProvider() *provider.Provider {
 				accessKey := config.GetString("accounts.access_key")
 				secretKey := config.GetString("accounts.secret_key")
 				regions := config.GetStringSlice("accounts.regions")
+
+				if len(regions) == 0 {
+					regions = strings.Split(os.Getenv("ALIBABACLOUD_REGIONS"), ",")
+				}
+
 				var alicloudConfig *alicloud_client.AliCloudConfig
 				if accessKey == constants.Constants_18 || secretKey == constants.Constants_19 {
 					var err error
