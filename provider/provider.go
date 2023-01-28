@@ -34,11 +34,6 @@ func GetProvider() *provider.Provider {
 				//regions := config.GetStringSlice("providers.0.accounts.regions")
 				accessKey := config.GetString("accounts.access_key")
 				secretKey := config.GetString("accounts.secret_key")
-				regions := config.GetStringSlice("accounts.regions")
-
-				if len(regions) == 0 {
-					regions = strings.Split(os.Getenv("ALIBABACLOUD_REGIONS"), ",")
-				}
 
 				var alicloudConfig *alicloud_client.AliCloudConfig
 				if accessKey == constants.Constants_18 || secretKey == constants.Constants_19 {
@@ -46,6 +41,32 @@ func GetProvider() *provider.Provider {
 					accessKey, secretKey, err = alicloud_client.GetEnv(ctx, clientMeta, nil, nil)
 					if err != nil {
 						return nil, diagnostics.AddErrorMsg("create alicloud error: %s", err.Error())
+					}
+				}
+
+				// regions init
+				regions := config.GetStringSlice("accounts.regions")
+				if len(regions) == 0 {
+					regionsString, exists := os.LookupEnv("ALIBABACLOUD_REGIONS")
+					if exists && regionsString != "" {
+						for _, region := range strings.Split(regionsString, ",") {
+							regions = append(regions, strings.TrimSpace(region))
+						}
+					} else {
+						region, exists := os.LookupEnv("ALIBABACLOUD_REGION_ID")
+						if exists && region != "" {
+							regions = append(regions, region)
+						} else {
+							region, exists := os.LookupEnv("ALICLOUD_REGION_ID")
+							if exists && region != "" {
+								regions = append(regions, region)
+							} else {
+								region, exists := os.LookupEnv("REGION")
+								if exists && region != "" {
+									regions = append(regions, region)
+								}
+							}
+						}
 					}
 				}
 
@@ -100,6 +121,10 @@ func GetProvider() *provider.Provider {
 				}
 
 				// ------------------------------------------------- --------------------------------------------------------------------
+
+				// Set the variable so that it can be retrieved later
+				_ = os.Setenv("ALIBABACLOUD_ACCESS_KEY_ID", accessKey)
+				_ = os.Setenv("ALIBABACLOUD_ACCESS_KEY_SECRET", secretKey)
 
 				alicloudConfig = &alicloud_client.AliCloudConfig{
 					AccessKey: pointer.ToStringPointerOrNilIfEmpty(accessKey),
