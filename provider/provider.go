@@ -52,22 +52,23 @@ func GetProvider() *provider.Provider {
 						for _, region := range strings.Split(regionsString, ",") {
 							regions = append(regions, strings.TrimSpace(region))
 						}
-					} else {
-						region, exists := os.LookupEnv("ALIBABACLOUD_REGION_ID")
-						if exists && region != "" {
-							regions = append(regions, region)
-						} else {
-							region, exists := os.LookupEnv("ALICLOUD_REGION_ID")
-							if exists && region != "" {
-								regions = append(regions, region)
-							} else {
-								region, exists := os.LookupEnv("REGION")
-								if exists && region != "" {
-									regions = append(regions, region)
-								}
-							}
-						}
 					}
+					//} else {
+					//	region, exists := os.LookupEnv("ALIBABACLOUD_REGION_ID")
+					//	if exists && region != "" {
+					//		regions = append(regions, region)
+					//	} else {
+					//		region, exists := os.LookupEnv("ALICLOUD_REGION_ID")
+					//		if exists && region != "" {
+					//			regions = append(regions, region)
+					//		} else {
+					//			region, exists := os.LookupEnv("REGION")
+					//			if exists && region != "" {
+					//				regions = append(regions, region)
+					//			}
+					//		}
+					//	}
+					//}
 				}
 
 				// ------------------------------------------------- --------------------------------------------------------------------
