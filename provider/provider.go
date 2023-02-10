@@ -32,8 +32,8 @@ func GetProvider() *provider.Provider {
 				//accessKey := config.GetString("providers.0.accounts.access_key")
 				//secretKey := config.GetString("providers.0.accounts.secret_key")
 				//regions := config.GetStringSlice("providers.0.accounts.regions")
-				accessKey := config.GetString("accounts.access_key")
-				secretKey := config.GetString("accounts.secret_key")
+				accessKey := config.GetString("access_key")
+				secretKey := config.GetString("secret_key")
 
 				var alicloudConfig *alicloud_client.AliCloudConfig
 				if accessKey == constants.Constants_18 || secretKey == constants.Constants_19 {
@@ -143,14 +143,13 @@ func GetProvider() *provider.Provider {
 		},
 		ConfigMeta: provider.ConfigMeta{
 			GetDefaultConfigTemplate: func(ctx context.Context) string {
-				return `#accounts:
-  # Authenticate with the 'access_key' and 'secret_key' arguments.
-#  access_key: "xxx"
-#  secret_key: "xxx"
-  # Optional. By default Selefra requires region as part of credentials, pass specific regions as environment variables 'ALIBABACLOUD_REGION_ID', 'ALICLOUD_REGION_ID' or 'ALICLOUD_REGION'.
-#  regions:
-#    - "us-east-1"
-#    - "ap-south-1"`
+				return `# Authenticate with the 'access_key' and 'secret_key' arguments.
+access_key: "xxx"
+secret_key: "xxx"
+# Optional. By default Selefra requires region as part of credentials, pass specific regions as environment variables 'ALIBABACLOUD_REGION_ID', 'ALICLOUD_REGION_ID' or 'ALICLOUD_REGION'.
+regions:
+  - "us-east-1"
+  - "ap-south-1"`
 			},
 			Validation: func(ctx context.Context, config *viper.Viper) *schema.Diagnostics {
 

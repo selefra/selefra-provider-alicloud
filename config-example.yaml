@@ -1,8 +1,7 @@
-accounts:
-  # Authenticate with the `access_key` and `secret_key` arguments.
-  access_key: "xxx"
-  secret_key: "xxx"
-  # Optional. By default Selefra requires region as part of credentials, pass specific regions as environment variables `ALIBABACLOUD_REGION_ID`, `ALICLOUD_REGION_ID` or `ALICLOUD_REGION`.
-  regions:
-    - "us-east-1"
-    - "ap-south-1"
+# Authenticate with the 'access_key' and 'secret_key' arguments.
+access_key: "xxx"
+secret_key: "xxx"
+# Optional. By default Selefra requires region as part of credentials, pass specific regions as environment variables 'ALIBABACLOUD_REGION_ID', 'ALICLOUD_REGION_ID' or 'ALICLOUD_REGION'.
+regions:
+  - "us-east-1"
+  - "ap-south-1"
