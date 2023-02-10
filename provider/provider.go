@@ -29,9 +29,6 @@ func GetProvider() *provider.Provider {
 				diagnostics := schema.NewDiagnostics()
 
 				// 1. first try read config from selefra config
-				//accessKey := config.GetString("providers.0.accounts.access_key")
-				//secretKey := config.GetString("providers.0.accounts.secret_key")
-				//regions := config.GetStringSlice("providers.0.accounts.regions")
 				accessKey := config.GetString("access_key")
 				secretKey := config.GetString("secret_key")
 
@@ -45,7 +42,7 @@ func GetProvider() *provider.Provider {
 				}
 
 				// regions init
-				regions := config.GetStringSlice("accounts.regions")
+				regions := config.GetStringSlice("regions")
 				if len(regions) == 0 {
 					regionsString, exists := os.LookupEnv("ALIBABACLOUD_REGIONS")
 					if exists && regionsString != "" {
