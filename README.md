@@ -1,6 +1,6 @@
-# Selefra Provider Alicloud
+# Selefra Provider REPLACE-ME-TO-YOUR-PROVIDER-NAME
 
-Use this repo as a raw reference to **tables and schema** for Alicloud resources. [Here's](https://github.com/selefra/selefra-provider-alicloud/blob/main/docs/tables/alicloud.md) a summary of full coverage.
+Use this repo as a raw reference to **tables and schema** for REPLACE-ME-TO-YOUR-PROVIDER-NAME resources. [Here's](https://github.com/selefra/selefra-provider-alicloud/blob/main/docs/tables/alicloud.md) a summary of full coverage.
 As an experienced user, the tables are especially helpful when you're writing SQL queries for specific task.
 If you're just starting, navigate to our documentation for example usage.
 
