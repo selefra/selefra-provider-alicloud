@@ -1,4 +1,4 @@
-module github.com/selefra/selefra-provider-REPLACE-ME-TO-YOUR-PROVIDER-NAME
+module github.com/selefra/selefra-provider-alicloud
 
 go 1.19
 
