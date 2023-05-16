@@ -280,8 +280,8 @@ func (x *TableAlicloudEcsAutoscalingGroupGenerator) GetColumns() []*schema.Colum
 		table_schema_generator.NewColumnBuilder().ColumnName("pending_capacity").ColumnType(schema.ColumnTypeInt).Description("The number of ECS instances that are being added to the scaling group, but are still being configured.").Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("suspended_processes").ColumnType(schema.ColumnTypeJSON).Description("The scaling activity that is suspended. If no scaling activity is suspended, the returned value is null.").
 			Extractor(column_value_extractor.StructSelector("SuspendedProcesses.SuspendedProcess")).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("primary keys value md5").
-			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 	}
 }
 

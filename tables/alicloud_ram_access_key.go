@@ -120,8 +120,8 @@ func (x *TableAlicloudRamAccessKeyGenerator) GetColumns() []*schema.Column {
 				return extractor.Extract(ctx, clientMeta, taskClient, task, row, column, r)
 			})).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("user_name").ColumnType(schema.ColumnTypeString).Description("Name of the User that the access key belongs to.").Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("primary keys value md5").
-			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("alicloud_ram_user_selefra_id").ColumnType(schema.ColumnTypeString).Description("fk to alicloud_ram_user.selefra_id").
 			Extractor(column_value_extractor.ParentColumnValue("selefra_id")).Build(),
 	}

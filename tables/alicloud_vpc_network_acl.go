@@ -185,8 +185,8 @@ func (x *TableAlicloudVpcNetworkAclGenerator) GetColumns() []*schema.Column {
 			Extractor(column_value_extractor.StructSelector("IngressAclEntries.IngressAclEntry")).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("egress_acl_entries").ColumnType(schema.ColumnTypeJSON).Description("A list of outbound rules of the network ACL.").
 			Extractor(column_value_extractor.StructSelector("EgressAclEntries.EgressAclEntry")).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("primary keys value md5").
-			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 	}
 }
 

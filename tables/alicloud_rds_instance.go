@@ -902,8 +902,8 @@ func (x *TableAlicloudRdsInstanceGenerator) GetColumns() []*schema.Column {
 				extractor := column_value_extractor.StructSelector("DBInstanceStorage")
 				return extractor.Extract(ctx, clientMeta, taskClient, task, row, column, r)
 			})).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("primary keys value md5").
-			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 	}
 }
 

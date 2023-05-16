@@ -230,8 +230,8 @@ func (x *TableAlicloudRamPolicyGenerator) GetColumns() []*schema.Column {
 			Extractor(column_value_extractor.StructSelector("DefaultVersion", "Policy.DefaultVersion")).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("description").ColumnType(schema.ColumnTypeString).Description("The policy description").
 			Extractor(column_value_extractor.StructSelector("Description", "Policy.Description")).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("primary keys value md5").
-			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 	}
 }
 

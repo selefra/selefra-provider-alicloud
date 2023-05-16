@@ -304,8 +304,8 @@ func (x *TableAlicloudCsKubernetesClusterGenerator) GetColumns() []*schema.Colum
 			Extractor(column_value_extractor.StructSelector("deletion_protection")).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("gw_bridge").ColumnType(schema.ColumnTypeString).
 			Extractor(column_value_extractor.StructSelector("gw_bridge")).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("primary keys value md5").
-			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 	}
 }
 

@@ -174,8 +174,8 @@ func (x *TableAlicloudVpcEipGenerator) GetColumns() []*schema.Column {
 				return extractor.Extract(ctx, clientMeta, taskClient, task, row, column, r)
 			})).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("allocation_id").ColumnType(schema.ColumnTypeString).Description("The unique ID of the EIP.").Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("primary keys value md5").
-			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 	}
 }
 

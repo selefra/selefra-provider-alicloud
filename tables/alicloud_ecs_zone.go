@@ -128,8 +128,8 @@ func (x *TableAlicloudEcsZoneGenerator) GetColumns() []*schema.Column {
 			Extractor(column_value_extractor.StructSelector("AvailableInstanceTypes.InstanceTypes")).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("available_resources").ColumnType(schema.ColumnTypeJSON).Description("An array consisting of ResourcesInfo data.").
 			Extractor(column_value_extractor.StructSelector("AvailableResources.ResourcesInfo")).Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("primary keys value md5").
-			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("alicloud_ecs_region_selefra_id").ColumnType(schema.ColumnTypeString).Description("fk to alicloud_ecs_region.selefra_id").
 			Extractor(column_value_extractor.ParentColumnValue("selefra_id")).Build(),
 	}

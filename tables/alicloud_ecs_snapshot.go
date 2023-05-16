@@ -171,8 +171,8 @@ func (x *TableAlicloudEcsSnapshotGenerator) GetColumns() []*schema.Column {
 		table_schema_generator.NewColumnBuilder().ColumnName("serial_number").ColumnType(schema.ColumnTypeString).Description("The serial number of the snapshot.").
 			Extractor(column_value_extractor.StructSelector("SnapshotSN")).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("instant_access_retention_days").ColumnType(schema.ColumnTypeInt).Description("Indicates the retention period of the instant access feature. After the retention per iod ends, the snapshot is automatically released.").Build(),
-		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("primary keys value md5").
-			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 	}
 }
 
