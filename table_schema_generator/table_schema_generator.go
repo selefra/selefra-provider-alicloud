@@ -26,13 +26,13 @@ type TableSchemaGenerator interface {
 
 func GenTableSchema(g TableSchemaGenerator) *schema.Table {
 	return &schema.Table{
-		TableName:		g.GetTableName(),
-		Description:		g.GetTableDescription(),
-		Columns:		g.GetColumns(),
-		SubTables:		g.GetSubTables(),
-		Options:		g.GetOptions(),
-		DataSource:		*g.GetDataSource(),
-		ExpandClientTask:	g.GetExpandClientTask(),
-		Version:		g.GetVersion(),
+		TableName:        g.GetTableName(),
+		Description:      g.GetTableDescription(),
+		Columns:          g.GetColumns(),
+		SubTables:        g.GetSubTables(),
+		Options:          g.GetOptions(),
+		DataSource:       *g.GetDataSource(),
+		ExpandClientTask: g.GetExpandClientTask(),
+		Version:          g.GetVersion(),
 	}
 }

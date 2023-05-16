@@ -11,5 +11,7 @@
 | maximum | float | X | √ | The maximum metric value for the data point. | 
 | minimum | float | X | √ | The minimum metric value for the data point. | 
 | timestamp | timestamp | X | √ | The timestamp used for the data point. | 
+| selefra_id | string | X | √ | primary keys value md5 | 
+| alicloud_rds_instance_selefra_id | string | X | √ | fk to alicloud_rds_instance.selefra_id | 
 
 

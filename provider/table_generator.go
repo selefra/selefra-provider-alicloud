@@ -1,9 +1,9 @@
 package provider
 
 import (
-	"github.com/selefra/selefra-provider-sdk/provider/schema"
 	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
 	"github.com/selefra/selefra-provider-alicloud/tables"
+	"github.com/selefra/selefra-provider-sdk/provider/schema"
 )
 
 func GenTables() []*schema.Table {
