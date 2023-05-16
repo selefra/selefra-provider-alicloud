@@ -100,6 +100,8 @@ func (x *TableAlicloudAccountGenerator) GetColumns() []*schema.Column {
 			})).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("title").ColumnType(schema.ColumnTypeString).Description("Title of the resource.").
 			Extractor(column_value_extractor.StructSelector("AccountAlias")).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("primary keys value md5").
+			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
 	}
 }
 

@@ -6,10 +6,10 @@ import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/errors"
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/ess"
+	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
+	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
 	"github.com/selefra/selefra-provider-sdk/provider/transformer/column_value_extractor"
-	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
-	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
 )
 
 type TableAlicloudEcsAutoscalingGroupGenerator struct {
@@ -280,6 +280,8 @@ func (x *TableAlicloudEcsAutoscalingGroupGenerator) GetColumns() []*schema.Colum
 		table_schema_generator.NewColumnBuilder().ColumnName("pending_capacity").ColumnType(schema.ColumnTypeInt).Description("The number of ECS instances that are being added to the scaling group, but are still being configured.").Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("suspended_processes").ColumnType(schema.ColumnTypeJSON).Description("The scaling activity that is suspended. If no scaling activity is suspended, the returned value is null.").
 			Extractor(column_value_extractor.StructSelector("SuspendedProcesses.SuspendedProcess")).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("primary keys value md5").
+			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
 	}
 }
 

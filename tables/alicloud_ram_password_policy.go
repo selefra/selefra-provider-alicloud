@@ -83,6 +83,8 @@ func (x *TableAlicloudRamPasswordPolicyGenerator) GetColumns() []*schema.Column 
 		table_schema_generator.NewColumnBuilder().ColumnName("password_reuse_prevention").ColumnType(schema.ColumnTypeInt).Description("The number of previous passwords that the user is prevented from reusing. Default value: 0. The default value indicates that the RAM user is not prevented from reusing previous passwords.").Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("require_numbers").ColumnType(schema.ColumnTypeBool).Description("Indicates whether a password must contain one or more digits.").Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("require_symbols").ColumnType(schema.ColumnTypeBool).Description("Indicates whether a password must contain one or more special characters.").Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("primary keys value md5").
+			Extractor(column_value_extractor.PrimaryKeysID()).Build(),
 	}
 }
 
