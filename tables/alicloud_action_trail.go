@@ -5,10 +5,10 @@ import (
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/actiontrail"
+	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
+	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
 	"github.com/selefra/selefra-provider-sdk/provider/transformer/column_value_extractor"
-	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
-	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
 )
 
 type TableAlicloudActionTrailGenerator struct {
@@ -140,6 +140,8 @@ func (x *TableAlicloudActionTrailGenerator) GetColumns() []*schema.Column {
 			})).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("status").ColumnType(schema.ColumnTypeString).Description("The status of the trail.").Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("oss_bucket_name").ColumnType(schema.ColumnTypeString).Description("The name of the OSS bucket to which events are delivered.").Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 	}
 }
 

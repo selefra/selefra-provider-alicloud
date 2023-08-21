@@ -11,5 +11,7 @@
 | metric_name | string | X | √ | The name of the metric. | 
 | namespace | string | X | √ | The metric namespace. | 
 | average | float | X | √ | The average of the metric values that correspond to the data point. | 
+| selefra_id | string | X | √ | primary keys value md5 | 
+| alicloud_rds_instance_selefra_id | string | X | √ | fk to alicloud_rds_instance.selefra_id | 
 
 

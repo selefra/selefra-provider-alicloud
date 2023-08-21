@@ -87,6 +87,8 @@ func (x *TableAlicloudRamSecurityPreferenceGenerator) GetColumns() []*schema.Col
 			Extractor(column_value_extractor.StructSelector("AccessKeyPreference.AllowUserToManageAccessKeys")).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("allow_user_to_manage_mfa_devices").ColumnType(schema.ColumnTypeBool).Description("Indicates whether RAM users can manage their MFA devices.").
 			Extractor(column_value_extractor.StructSelector("MFAPreference.AllowUserToManageMFADevices")).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 	}
 }
 

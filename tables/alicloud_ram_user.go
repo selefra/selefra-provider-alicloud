@@ -399,6 +399,8 @@ func (x *TableAlicloudRamUserGenerator) GetColumns() []*schema.Column {
 		table_schema_generator.NewColumnBuilder().ColumnName("display_name").ColumnType(schema.ColumnTypeString).Description("The display name of the RAM user.").Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("comments").ColumnType(schema.ColumnTypeString).Description("The description of the RAM user.").Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("create_date").ColumnType(schema.ColumnTypeTimestamp).Description("The time when the RAM user was created.").Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 	}
 }
 

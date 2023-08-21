@@ -2,8 +2,9 @@ package tables
 
 import (
 	"context"
-	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
 	"strconv"
+
+	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/sas"
 	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
@@ -133,6 +134,8 @@ func (x *TableAlicloudSecurityCenterVersionGenerator) GetColumns() []*schema.Col
 		table_schema_generator.NewColumnBuilder().ColumnName("sls_capacity").ColumnType(schema.ColumnTypeInt).Description("The purchased capacity of log storage.").Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("web_lock").ColumnType(schema.ColumnTypeInt).Description("Indicates whether web tamper proofing is enabled.").Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("app_white_list").ColumnType(schema.ColumnTypeInt).Description("Indicates whether the application whitelist is enabled.").Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 	}
 }
 

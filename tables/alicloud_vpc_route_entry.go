@@ -2,6 +2,7 @@ package tables
 
 import (
 	"context"
+
 	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/vpc"
@@ -158,6 +159,10 @@ func (x *TableAlicloudVpcRouteEntryGenerator) GetColumns() []*schema.Column {
 		table_schema_generator.NewColumnBuilder().ColumnName("status").ColumnType(schema.ColumnTypeString).Description("The status of the route entry.").Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("next_hops").ColumnType(schema.ColumnTypeJSON).Description("The information about the next hop.").
 			Extractor(column_value_extractor.StructSelector("NextHops.NextHop")).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("alicloud_vpc_route_table_selefra_id").ColumnType(schema.ColumnTypeString).Description("fk to alicloud_vpc_route_table.selefra_id").
+			Extractor(column_value_extractor.ParentColumnValue("selefra_id")).Build(),
 	}
 }
 

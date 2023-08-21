@@ -106,6 +106,8 @@ func (x *TableAlicloudEcsRegionGenerator) GetColumns() []*schema.Column {
 				extractor := column_value_extractor.StructSelector("AccountID")
 				return extractor.Extract(ctx, clientMeta, taskClient, task, row, column, r)
 			})).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 	}
 }
 

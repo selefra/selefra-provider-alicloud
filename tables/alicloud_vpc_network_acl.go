@@ -6,10 +6,10 @@ import (
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/requests"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/vpc"
+	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
+	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
 	"github.com/selefra/selefra-provider-sdk/provider/transformer/column_value_extractor"
-	"github.com/selefra/selefra-provider-alicloud/table_schema_generator"
-	"github.com/selefra/selefra-provider-alicloud/alicloud_client"
 )
 
 type TableAlicloudVpcNetworkAclGenerator struct {
@@ -185,6 +185,8 @@ func (x *TableAlicloudVpcNetworkAclGenerator) GetColumns() []*schema.Column {
 			Extractor(column_value_extractor.StructSelector("IngressAclEntries.IngressAclEntry")).Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("egress_acl_entries").ColumnType(schema.ColumnTypeJSON).Description("A list of outbound rules of the network ACL.").
 			Extractor(column_value_extractor.StructSelector("EgressAclEntries.EgressAclEntry")).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 	}
 }
 

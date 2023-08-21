@@ -3,6 +3,7 @@ package tables
 import (
 	"context"
 	"encoding/base64"
+
 	ims "github.com/alibabacloud-go/ims-20190815/client"
 
 	"github.com/gocarina/gocsv"
@@ -149,6 +150,8 @@ func (x *TableAlicloudRamCredentialReportGenerator) GetColumns() []*schema.Colum
 		table_schema_generator.NewColumnBuilder().ColumnName("additional_access_key_2_last_rotated").ColumnType(schema.ColumnTypeTimestamp).Description("Specifies the time when the access key has been rotated.").Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("password_last_changed").ColumnType(schema.ColumnTypeTimestamp).Description("Specifies the time when the password has been updated.").Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("additional_access_key_3_last_rotated").ColumnType(schema.ColumnTypeTimestamp).Description("Specifies the time when the access key has been rotated.").Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 	}
 }
 

@@ -101,6 +101,8 @@ func (x *TableAlicloudSecurityCenterFieldStatisticsGenerator) GetColumns() []*sc
 		table_schema_generator.NewColumnBuilder().ColumnName("risk_instance_count").ColumnType(schema.ColumnTypeInt).Description("The number of assets that are at risk.").Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("test_asset_count").ColumnType(schema.ColumnTypeInt).Description("The number of test assets.").Build(),
 		table_schema_generator.NewColumnBuilder().ColumnName("vpc_count").ColumnType(schema.ColumnTypeInt).Description("The number of VPCs.").Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 	}
 }
 

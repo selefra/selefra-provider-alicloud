@@ -161,6 +161,8 @@ func (x *TableAlicloudCmsMonitorHostGenerator) GetColumns() []*schema.Column {
 
 				return result, nil
 			})).Build(),
+		table_schema_generator.NewColumnBuilder().ColumnName("selefra_id").ColumnType(schema.ColumnTypeString).Description("random id").
+			Extractor(column_value_extractor.UUID()).Build(),
 	}
 }
 
